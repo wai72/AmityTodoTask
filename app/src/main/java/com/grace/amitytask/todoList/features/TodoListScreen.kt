@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.grace.amitytask.todoList.domain.model.Todo
+import com.grace.amitytask.todoList.others.Constants
 import com.grace.amitytask.todoList.presentation.MainViewModal
 import kotlinx.coroutines.CoroutineScope
 
@@ -36,7 +37,7 @@ fun TodoListScreen(mainViewModal: MainViewModal = hiltViewModel()) {
         paddingValues ->  LazyColumn(modifier = Modifier
         .fillMaxWidth()
         .padding(paddingValues),
-        contentPadding = PaddingValues(8.dp)){
+        contentPadding = PaddingValues(Constants.NORMAL_MARGIN)){
     }
         // Todo Api return empty
         if(todos.isEmpty()){
@@ -49,12 +50,12 @@ fun TodoListScreen(mainViewModal: MainViewModal = hiltViewModel()) {
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "Todo List",
+                text = Constants.TITLE_TEXT,
                 style = TextStyle(
-                    fontSize = 35.sp,
+                    fontSize = Constants.LARGE_FONT_SIZE,
                     fontWeight = FontWeight.Bold
                 ),
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier.padding(Constants.Large_MARGIN)
             )
             LazyColumn(Modifier.fillMaxSize()) {
                 items(todos.size) {

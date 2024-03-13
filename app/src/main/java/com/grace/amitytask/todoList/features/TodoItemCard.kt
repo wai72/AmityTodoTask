@@ -18,19 +18,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.grace.amitytask.todoList.R
 import com.grace.amitytask.todoList.domain.model.Todo
+import com.grace.amitytask.todoList.others.Constants
 
 @Composable
 fun TodoItemCard(todo: Todo) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp, vertical = 10.dp)
+            .padding(horizontal = Constants.NORMAL_MARGIN, vertical = Constants.NORMAL_MARGIN)
     ){
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -39,10 +42,17 @@ fun TodoItemCard(todo: Todo) {
             Column(
                 Modifier
                     .fillMaxWidth(0.8f)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)){
+                    .padding(
+                        horizontal = Constants.LargeX_MARGIN,
+                        vertical = Constants.NORMAL_MARGIN
+                    )){
                 Text(text = todo.taskTitle, overflow = TextOverflow.Ellipsis, maxLines = 1, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(text = "Complete Status : ${todo.isCompleted.toString()}")
+                Spacer(modifier = Modifier.width(Constants.Large_MARGIN))
+                Row (){
+                    Text(text = "Complete Status :")
+                    Spacer(modifier = Modifier.width(Constants.NORMAL_MARGIN))
+                    Text(text = todo.isCompleted.toString(), color = colorResource(id = R.color.purple_500))
+                }
             }
 
         }
