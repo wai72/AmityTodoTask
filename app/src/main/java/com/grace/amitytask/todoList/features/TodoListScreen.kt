@@ -30,8 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoListScreen(mainViewModal: MainViewModal = hiltViewModel()) {
-    val todos: List<Todo> by mainViewModal.getTodoList.collectAsStateWithLifecycle(initialValue = emptyList())
-    val scope: CoroutineScope = rememberCoroutineScope()
+    val todos: List<Todo> by mainViewModal.todoList.collectAsStateWithLifecycle(initialValue = emptyList())
 
     Scaffold {
         paddingValues ->  LazyColumn(modifier = Modifier
@@ -39,14 +38,13 @@ fun TodoListScreen(mainViewModal: MainViewModal = hiltViewModel()) {
         .padding(paddingValues),
         contentPadding = PaddingValues(8.dp)){
     }
-
+        // Todo Api return empty
         if(todos.isEmpty()){
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
                 CircularProgressIndicator()
             }
         }
-
-
+        // Todo list from Room Database
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -58,7 +56,6 @@ fun TodoListScreen(mainViewModal: MainViewModal = hiltViewModel()) {
                 ),
                 modifier = Modifier.padding(12.dp)
             )
-
             LazyColumn(Modifier.fillMaxSize()) {
                 items(todos.size) {
                     TodoItemCard(todo = todos[it])

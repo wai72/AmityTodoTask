@@ -9,5 +9,4 @@ class TodoRepository(private val dao: TodoDao) {
 
     fun getTodoList(): Flow<List<Todo>> = dao.getTodoList()
 
-    fun deleteTodoList() : Unit = dao.deleteTodoList();
 }

@@ -7,7 +7,7 @@ import javax.inject.Inject
 class TodoNetworkRepository @Inject constructor(
     private val api: TodoApi,
 ) {
-    suspend fun getTodos() : List<Todo>{
-        return api.getTodos();
+    suspend fun getTodosFormAPI() : List<Todo>{
+        return api.getTodosFormAPI();
     }
 }

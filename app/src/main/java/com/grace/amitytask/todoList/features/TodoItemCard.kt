@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,10 +39,10 @@ fun TodoItemCard(todo: Todo) {
             Column(
                 Modifier
                     .fillMaxWidth(0.8f)
-                    .padding(8.dp)){
-                Text(text = "task name : ${todo.taskTitle}", overflow = TextOverflow.Ellipsis, maxLines = 1)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)){
+                Text(text = todo.taskTitle, overflow = TextOverflow.Ellipsis, maxLines = 1, fontWeight = FontWeight.Bold)
                 Spacer(modifier = Modifier.width(12.dp))
-                Text(text = "complete status : ${todo.isCompleted.toString()}")
+                Text(text = "Complete Status : ${todo.isCompleted.toString()}")
             }
 
         }

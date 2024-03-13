@@ -6,6 +6,7 @@ import com.grace.amitytask.todoList.data.local.TodoDao
 import com.grace.amitytask.todoList.data.local.TodoDatabase
 import com.grace.amitytask.todoList.data.remote.TodoApi
 import com.grace.amitytask.todoList.data.repository.TodoRepository
+import com.grace.amitytask.todoList.others.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,12 +25,17 @@ object AppModule {
     @Provides
     @Singleton
     fun provideLocalDatabase(@ApplicationContext context: Context): TodoDatabase {
-        return Room.databaseBuilder(context, TodoDatabase::class.java, name = "local_db").build()
+        return Room.databaseBuilder(context, TodoDatabase::class.java, name = Constants.TODO_DATABASE_NAME).build()
     }
 
     @Provides
     @Singleton
     fun provideTodoDao(db: TodoDatabase) : TodoDao = db.todoDao()
+
+    @Provides
+    @Singleton
+    fun provideTodoRepository(dao: TodoDao) : TodoRepository = TodoRepository(dao = dao)
+
 
     @Singleton
     @Provides
@@ -41,7 +47,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideTodoApi(client : OkHttpClient) : TodoApi = Retrofit.Builder()
-        .baseUrl("https://jsonplaceholder.typicode.com/")
+        .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
