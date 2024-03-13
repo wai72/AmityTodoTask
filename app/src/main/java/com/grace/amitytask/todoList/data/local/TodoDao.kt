@@ -16,6 +16,9 @@ interface TodoDao {
     @Delete
     suspend fun deleteToDo(todo: Todo)
 
+    @Query("DELETE FROM Todo")
+    fun deleteTodoList(): Unit
+
     @Query("SELECT * FROM Todo")
     fun getTodoList(): Flow<List<Todo>>
 }

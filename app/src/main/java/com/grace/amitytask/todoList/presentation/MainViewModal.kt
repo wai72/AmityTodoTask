@@ -15,16 +15,40 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModal @Inject constructor(
-    private val repository: TodoRepository
+    private val repository: TodoRepository,
+    private val networkRepository: TodoNetworkRepository,
 ) : ViewModel(){
     var todo: Todo by mutableStateOf(Todo(0,"", false))
         private set
 
+
+    init {
+        getTodosFromNetwork()
+    }
+
     val getTodoList : Flow<List<Todo>> = repository.getTodoList()
 
-    fun insertTodo(todo: Todo){
+    private fun insertTodo(todo: Todo){
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertTodo(todo = todo)
         }
     }
+
+    private fun deleteAllTodos(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteTodoList()
+        }
+    }
+
+    private fun getTodosFromNetwork(){
+        deleteAllTodos()
+        viewModelScope.launch {
+            var todos = networkRepository.getTodos();
+            println(todos)
+            todos.forEach {
+                insertTodo(it)
+            }
+        }
+    }
+
 }

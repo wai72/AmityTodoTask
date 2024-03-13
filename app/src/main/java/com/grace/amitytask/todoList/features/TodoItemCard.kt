@@ -18,6 +18,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.grace.amitytask.todoList.domain.model.Todo
@@ -25,16 +27,21 @@ import com.grace.amitytask.todoList.domain.model.Todo
 @Composable
 fun TodoItemCard(todo: Todo) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp, vertical = 10.dp)
     ){
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Column(Modifier.fillMaxWidth(0.8f).padding(8.dp)){
-                Text(text = todo.taskTitle, overflow = TextOverflow.Ellipsis, maxLines = 1)
+            Column(
+                Modifier
+                    .fillMaxWidth(0.8f)
+                    .padding(8.dp)){
+                Text(text = "task name : ${todo.taskTitle}", overflow = TextOverflow.Ellipsis, maxLines = 1)
                 Spacer(modifier = Modifier.width(12.dp))
-                Text(text = todo.isCompleted.toString())
+                Text(text = "complete status : ${todo.isCompleted.toString()}")
             }
 
         }
